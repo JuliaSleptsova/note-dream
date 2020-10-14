@@ -1,1 +1,2 @@
-project notebook "Note of dreams"
+project notebook "Note of dreams" 
+java, maven
