@@ -11,34 +11,48 @@ import java.util.Scanner;
  */
 public class App {
 
-    static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-    static NoteMap note = new NoteMap();
 
+    static NoteMap note = new NoteMap();
+    static Scanner read = new Scanner(System.in);
     public static void main(String[] args) throws IOException {
 
-            var list = note.createList();
+        var list = note.createList();
+        label:
+        while (true) {
 
-            System.out.println("1. Посмотреть заметки\n2. Добавить заметки\n3. Удалить заметки");
-            String firstCommand = reader.readLine();
-            if (firstCommand.equals("1")) {
-                note.printList(list);
-            } else if (firstCommand.equals("2")) {
-                addMainList();
-                note.printList(list);
+            System.out.print("1. Добавить заметки\n2. Показать заметки\n3. Удалить заметки за день\n4. Выйти\nВведите номер нужной команды: ");
+            String command = read.nextLine();
+            switch (command) {
+                case "1":
+                    addMainList();
+                    break;
+                case "2":
+                    note.printList(list);
+                    break;
+                case "3":
+                    System.out.print("Введите дату в формате DD.MM.YYYY: ");
+                    String dataTask = read.nextLine();
+                    note.deleteList(note.createDate(dataTask));
+                    break;
+                case "4":
+                    break label;
             }
         }
+        read.close();
+
+    }
 
     public static void addMainList() throws IOException {
-        System.out.print("Введите дату заметки: ");
-        String dateTask = reader.readLine();
+        ArrayList<String> mass = new ArrayList<>();
+        System.out.print("Введите дату заметки в формате DD.MM.YYYY: ");
+        String dateTask = read.nextLine();
         System.out.println("Введите заметки: ");
         var read = new Scanner(System.in);
-        ArrayList<String> mass = new ArrayList<>();
         while (!(read.hasNextInt())) {
             String task = read.nextLine();
             mass.add(task);
-            note.addList(dateTask, mass);
         }
-
+        note.addList(note.createDate(dateTask), mass);
     }
+
 }

@@ -2,39 +2,48 @@ package com.belkaCoder.noteDream;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 
 public class NoteMap {
-    private Map<String, ArrayList<String>> list;
+    private Map<LocalDate, ArrayList<String>> list;
+    static  DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 
 
-    public void addList(String i, ArrayList<String> mass) {
-        list.put(i, mass);
-    }
-
-    public void printList(Map<String, ArrayList<String>> list) {
-        //System.out.println(createDate(date));
-        for (Map.Entry<String, ArrayList<String>> pair : list.entrySet()) {
-            String key = pair.getKey();
-            ArrayList<String> value = pair.getValue();
-            System.out.println(key + '\n');
-            for (String task : value) {
-                System.out.println(task);
-            }
-
+    public void addList(LocalDate dataTask, ArrayList<String> mass) {
+        if(list.containsKey(dataTask)){
+            ArrayList<String> value = list.get(dataTask);
+            value.addAll(mass);
+            list.put(dataTask, value);
+        }
+        else {
+            list.put(dataTask, mass);
         }
     }
 
-    public Map<String, ArrayList<String>> createList() {
+    public void printList(Map<LocalDate, ArrayList<String>> list) {
+        for (Map.Entry<LocalDate, ArrayList<String>> pair : list.entrySet()) {
+            LocalDate key = pair.getKey();
+            ArrayList<String> value = pair.getValue();
+            System.out.println(dtf.format(key));
+            for (String task : value) {
+                System.out.println(task);
+            }
+        }
+    }
 
-        this.list = new HashMap<String, ArrayList<String>>();
+    public Map<LocalDate, ArrayList<String>> createList() {
+        this.list = new HashMap<LocalDate, ArrayList<String>>();
         return list;
     }
-   /* public LocalDate createDate(long dateTask){
-        LocalDate date = LocalDate.now();
-        return date.plusDays(dateTask);
+   public LocalDate createDate(String dateTask){
+       //DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+        return LocalDate.parse(dateTask, dtf);
+    }
+    public void deleteList(LocalDate dataTask){
+        list.remove(dataTask);
 
-    }*/
+    }
 }
 
