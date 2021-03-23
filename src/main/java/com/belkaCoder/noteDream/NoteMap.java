@@ -8,16 +8,15 @@ import java.util.*;
 
 public class NoteMap {
     private Map<LocalDate, ArrayList<String>> list;
-    static  DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+    static DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 
 
     public void addList(LocalDate dataTask, ArrayList<String> mass) {
-        if(list.containsKey(dataTask)){
+        if (list.containsKey(dataTask)) {
             ArrayList<String> value = list.get(dataTask);
             value.addAll(mass);
             list.put(dataTask, value);
-        }
-        else {
+        } else {
             list.put(dataTask, mass);
         }
     }
@@ -34,14 +33,15 @@ public class NoteMap {
     }
 
     public Map<LocalDate, ArrayList<String>> createList() {
-        this.list = new HashMap<LocalDate, ArrayList<String>>();
+        this.list = new HashMap<>();
         return list;
     }
-   public LocalDate createDate(String dateTask){
-       //DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+
+    public LocalDate createDate(String dateTask) {
         return LocalDate.parse(dateTask, dtf);
     }
-    public void deleteList(LocalDate dataTask){
+
+    public void deleteList(LocalDate dataTask) {
         list.remove(dataTask);
 
     }

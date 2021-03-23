@@ -11,9 +11,9 @@ import java.util.Scanner;
  */
 public class App {
 
-
     static NoteMap note = new NoteMap();
     static Scanner read = new Scanner(System.in);
+
     public static void main(String[] args) throws IOException {
 
         var list = note.createList();
