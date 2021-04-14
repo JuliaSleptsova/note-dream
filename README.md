@@ -1,2 +1,2 @@
-project notebook "Note of dreams" 
+The project notebook "Note of dreams" 
 
